@@ -35,6 +35,8 @@ In Swift you should use the arc4random_uniform(N) function because it creates **
 
 5. **Unsafe**: Swift method for a random Int within [A, B] where A < B
 
+	Swift is strongly-typed which means that you need to explicitly change numbers that are Int into `UInt32` and vice versa for the code to compile. Use the `Int()` and `UInt32()` initializers to convert between the types.
+
 		func unsafeRandomIntFrom(start: Int, to end: Int) -> Int {
 			return Int(arc4random_uniform(UInt32(end - start + 1))) + start
 		}
@@ -42,9 +44,6 @@ In Swift you should use the arc4random_uniform(N) function because it creates **
 		unsafeRandomIntFrom(50, to: 100)  // positive ascending ranges work
 		unsafeRandomIntFrom(-50, to: 100) // negative ranges work!
 		//unsafeRandomIntFrom(500, to: 100) // Crash! EXC_BAD_INSTRUCTION
-
-
-	Swift is strongly-typed which means that you need to explicitly change numbers that are Int into `UInt32` and vice versa for the code to compile. Use the `Int()` and `UInt32()` initializers to convert between the types.
 	
 	**Crash**: Technically this will crash if `A > B` with a `EXC_BAD_INSTRUCTION` because the parameter of `arc4random_uniform()` is `UInt32` and can only hold positive 32-bit integer values. 
 
