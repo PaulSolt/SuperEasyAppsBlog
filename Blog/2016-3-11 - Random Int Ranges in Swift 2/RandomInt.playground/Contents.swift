@@ -30,8 +30,8 @@ func unsafeRandomIntFrom(start: Int, to end: Int) -> Int {
 	return Int(arc4random_uniform(UInt32(end - start + 1))) + start
 }
 
-unsafeRandomIntFrom(50, to: 100)
-unsafeRandomIntFrom(-50, to: 100)
+unsafeRandomIntFrom(50, to: 100)  // positive ascending ranges work
+unsafeRandomIntFrom(-50, to: 100) // negative ranges work!
 //unsafeRandomIntFrom(500, to: 100) // Crash! EXC_BAD_INSTRUCTION
 
 // This crash is because negative values are invalid for UInt32 types
@@ -59,8 +59,6 @@ randomIntFrom(100, to: -50)
 
 // One more thing ... create a reusable extension on Int for ranges
 
-
-
 extension Int {
 	static func randomIntFrom(start: Int, to end: Int) -> Int {
 		var a = start
@@ -72,6 +70,10 @@ extension Int {
 		return Int(arc4random_uniform(UInt32(b - a + 1))) + a
 	}
 }
+
+// Now use random integers in a real app by adding making a new file
+// called RandomInt.swift with the extension code
+
 
 // Paul - Not a good solution to use Range<Int>
 // ... can't prevent crash and limits of what are valid Ranges
